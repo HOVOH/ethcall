@@ -47,6 +47,13 @@ class Provider {
     this.multicall3 = getMulticall3(chainId);
   }
 
+  initSync(provider: EthersProvider, chainId: number): void {
+    this.provider = provider;
+    this.multicall = getMulticall(chainId);
+    this.multicall2 = getMulticall2(chainId);
+    this.multicall3 = getMulticall3(chainId);
+  }
+
   /**
    * Make one call to the multicall contract to retrieve eth balance of the given address.
    * @param address Address of the account you want to look up
