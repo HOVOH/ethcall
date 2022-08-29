@@ -23,7 +23,7 @@ interface CallRequest {
   callData: string;
 }
 
-interface Call {
+interface Call<T=any> {
   contract: {
     address: string;
   };
@@ -33,7 +33,7 @@ interface Call {
   params: Params;
 }
 
-interface FailableCall extends Call {
+interface FailableCall<T=any> extends Call<T> {
   canFail: boolean;
 }
 
