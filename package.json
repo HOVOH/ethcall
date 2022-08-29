@@ -1,6 +1,6 @@
 {
   "name": "@hovoh/ethcall",
-  "version": "4.9.1",
+  "version": "9.9.2",
   "description": "ethers.js-compatible wrapper around Multicall",
   "author": "Timur Badretdinov <destinerx@gmail.com>",
   "keywords": [
