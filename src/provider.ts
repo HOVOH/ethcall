@@ -1,27 +1,17 @@
-import {
-  BaseProvider,
-  Provider as EthersProvider,
-} from '@ethersproject/providers';
+import {BaseProvider, Provider as EthersProvider,} from '@ethersproject/providers';
 
-import {
-  Call,
-  all as callAll,
-  tryAll as callTryAll,
-  tryEach as callTryEach,
-} from './call';
+import {all as callAll, Call, tryAll as callTryAll, tryEach as callTryEach,} from './call';
 import getEthBalance from './calls';
-import {
-  Multicall,
-  getMulticall,
-  getMulticall2,
-  getMulticall3,
-} from './multicall';
+import {getMulticall, getMulticall2, getMulticall3, Multicall,} from './multicall';
+import {BlockTag, CallType, IMulticallProvider} from "./providerTypes";
 
 const DEFAULT_CHAIN_ID = 1;
 
-type CallType = 'BASIC' | 'TRY_ALL' | 'TRY_EACH';
-
-type BlockTag = number | 'latest' | 'pending';
+async function initMulticallProvider(ethersProvider: EthersProvider, chainId?: number):Promise<IMulticallProvider> {
+  const provider = new Provider();
+  await provider.init(ethersProvider, chainId);
+  return provider as unknown as IMulticallProvider;
+}
 
 /**
  * Represents a Multicall provider. Used to execute multiple Calls.
@@ -44,13 +34,17 @@ class Provider {
   /**
    * Initialize the provider. Should be called once before making any requests.
    * @param provider ethers provider
+   * @param chainId chain id of the provider
    */
-  async init(provider: EthersProvider): Promise<void> {
+  async init(provider: EthersProvider, chainId?: number): Promise<void> {
     this.provider = provider;
-    const network = await provider.getNetwork();
-    this.multicall = getMulticall(network.chainId);
-    this.multicall2 = getMulticall2(network.chainId);
-    this.multicall3 = getMulticall3(network.chainId);
+    if (!chainId) {
+      const network = await provider.getNetwork();
+      chainId = network.chainId;
+    }
+    this.multicall = getMulticall(chainId);
+    this.multicall2 = getMulticall2(chainId);
+    this.multicall3 = getMulticall3(chainId);
   }
 
   /**
@@ -178,4 +172,4 @@ class Provider {
 
 export default Provider;
 
-export type { BlockTag };
+export {initMulticallProvider}

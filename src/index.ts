@@ -1,5 +1,6 @@
 import { Call } from './call';
 import Contract from './contract';
-import Provider, { BlockTag } from './provider';
+import Provider, {initMulticallProvider} from './provider';
+import {BlockTag, IMulticallProvider} from "./providerTypes";
 
-export { BlockTag, Call, Contract, Provider };
+export { BlockTag, Call, Contract, Provider, initMulticallProvider, IMulticallProvider };
