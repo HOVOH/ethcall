@@ -13,6 +13,12 @@ async function initMulticallProvider(ethersProvider: EthersProvider, chainId?: n
   return provider as unknown as IMulticallProvider;
 }
 
+function initSyncMulticallProvider(ethersProvider: EthersProvider, chainId: number):IMulticallProvider {
+  const provider = new Provider();
+  provider.initSync(ethersProvider, chainId);
+  return provider as unknown as IMulticallProvider;
+}
+
 /**
  * Represents a Multicall provider. Used to execute multiple Calls.
  */
@@ -179,4 +185,4 @@ class Provider {
 
 export default Provider;
 
-export {initMulticallProvider}
+export {initMulticallProvider, initSyncMulticallProvider}

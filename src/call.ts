@@ -16,8 +16,7 @@ import {
   deploylessMulticall2Bytecode,
   deploylessMulticall3Bytecode,
 } from './multicall';
-
-import {BlockTag} from "@/providerTypes";
+import {BlockTag} from "./providerTypes";
 
 interface CallRequest {
   target: string;
